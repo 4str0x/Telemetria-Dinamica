@@ -1,0 +1,15 @@
+{
+  "timestamp": 1765941519.9353986,
+  "connected": false,
+  "telemetry": {
+    "time (s)": 0,
+    "Velocity (m/s)": 0,
+    "Altitude (m)": 0,
+    "Apoastro (km)": 0,
+    "Periastro (km)": 0,
+    "time-apostaro (s)": 0,
+    "Fuel (%)": 0,
+    "Mass (kg)": 0,
+    "Roll (\u00b0)": 0
+  }
+}
