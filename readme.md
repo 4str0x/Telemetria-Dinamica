@@ -21,7 +21,7 @@ The architecture is modular and robust, clearly separating the responsibilities 
 - **Python** 3.10 or higher
 - Operating system with thread support (Linux, Windows, macOS)
 - Juno New Origin (JNO) with the SR2LoggerPlus mod
-- Vizzy from [this craft](https://google.com)
+- Vizzy from [this craft](https://www.simplerockets.com/c/sudKb0/OBBP-Config-part-2)
 
 ---
 
