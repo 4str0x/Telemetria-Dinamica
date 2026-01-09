@@ -6,6 +6,9 @@ WATCHDOG_TIMEOUT = 2.0
 EXPORT_INTERVAL = 1.0
 EXPORT_FILE = "telemetry_state.json"
 
+WEBSOCKET_HOST = "localhost"
+WEBSOCKET_PORT = 8765
+
 TELEMETRY_FIELDS = [
     "time (s)",
     "Velocity (m/s)",

@@ -1,15 +1,18 @@
 import socket
 import time
 from core.packet import Packet
-from core.state import state, lock
+from core.state import state_data, lock
 from config.settings import *
+from infra.logger import logger
 
 def udp_receiver():
+    logger.info("[UDP] Iniciado")
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     sock.bind((UDP_HOST, UDP_PORT))
+    logger.info(f"[UDP] Escutando em {UDP_HOST}:{UDP_PORT}")
 
     while True:
-        data, _ = sock.recvfrom(BUFFER_SIZE)
+        data, addr = sock.recvfrom(BUFFER_SIZE)
         
         if len(data) < 5:
             continue
@@ -24,13 +27,14 @@ def udp_receiver():
             message = p.get(msg_len).decode("utf-8", errors="replace")
             values = message.split("ç")
 
-        except Exception:
+        except Exception as e:
+            logger.debug(f"[UDP] Erro ao processar pacote: {e}")
             continue
 
         with lock:
             for i, key in enumerate(TELEMETRY_FIELDS):
                 if i < len(values):
-                    state["telemetry"][key] = values[i]
+                    state_data["telemetry"][key] = values[i]
 
-            state["connected"] = True
-            state["last_packet"] = time.time()
+            state_data["connected"] = True
+            state_data["last_packet"] = time.time()

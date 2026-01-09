@@ -6,21 +6,29 @@ from core.watchdog import watchdog
 from core.exporter import exporter
 from infra.logger import logger
 from infra.startup_config import show_startup_config
+from infra.websocket_server import start_ws_thread
+
 
 if __name__ == "__main__":
     show_startup_config()
     time.sleep(2)
-    
-    logger.info("SR2 CORE ONLINE[/] | aguardando UDP…")
 
-    logger.info("📡 Iniciando receptor UDP")
+    logger.info("[WS] Iniciando servidor WebSocket")
+    start_ws_thread()
+
+    logger.info("[UDP] Iniciando receptor")
     threading.Thread(target=receiver.udp_receiver, daemon=True).start()
 
-    logger.info("🧠 Ativando watchdog de conexão")
+    logger.info("[WATCHDOG] Ativando monitor de conexão")
     threading.Thread(target=watchdog, daemon=True).start()
 
-    logger.info("📦 Iniciando pipeline de exportação")
+    logger.info("[EXPORTER] Iniciando pipeline de exportação")
     threading.Thread(target=exporter, daemon=True).start()
-    
-    while True:
-        time.sleep(1)
+
+    logger.info("[CORE] Sistema online | CTRL+C para encerrar")
+
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        logger.info("[CORE] Sistema encerrado")

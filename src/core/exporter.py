@@ -1,20 +1,26 @@
-import time
 import json
-from typing import Any
+import time
 
-from core.state import state, lock
-from config.settings import EXPORT_INTERVAL, EXPORT_FILE
+from core.state import state_data
+from infra.logger import logger
+from infra.websocket_server import ws_server
+
 
 def exporter():
+    logger.info("[EXPORTER] Iniciado")
+
     while True:
-        time.sleep(EXPORT_INTERVAL)
+        state = state_data
 
-        with lock:
-            snapshot: dict[str, Any] = {
-                "timestamp": time.time(),
-                "connected": state["connected"],
-                "telemetry": state["telemetry"]
-            }
+        if state:
+            data = state.copy()
+            
+            with open("telemetry_state.json", "w") as f:
+                json.dump(data, f, indent=2)
 
-        with open(EXPORT_FILE, "w") as f:
-            json.dump(snapshot, f, indent=2)
+            try:
+                ws_server.broadcast(data)
+            except RuntimeError:
+                pass
+
+        time.sleep(1)

@@ -1,6 +1,6 @@
 {
-  "timestamp": 1765941519.9353986,
   "connected": false,
+  "last_packet": 1767924401.1640677,
   "telemetry": {
     "time (s)": 0,
     "Velocity (m/s)": 0,

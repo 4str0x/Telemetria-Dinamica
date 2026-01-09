@@ -17,6 +17,8 @@ def show_startup_config():
 
     table.add_row("UDP Host", str(settings.UDP_HOST))
     table.add_row("UDP Port", str(settings.UDP_PORT))
+    table.add_row("WEBSOCKET Host", str(settings.WEBSOCKET_HOST))
+    table.add_row("WEBSOCKET Port", str(settings.WEBSOCKET_PORT))
     table.add_row("Watchdog Timeout (s)", str(settings.WATCHDOG_TIMEOUT))
     table.add_row("Export Interval (s)", str(settings.EXPORT_INTERVAL))
     table.add_row("Telemetry Fields", ", ".join(settings.TELEMETRY_FIELDS))
